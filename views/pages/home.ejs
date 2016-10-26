@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+    <style>
+        .btn-primary{
+            background-color: #0081a2;
+        }
+        .close{
+            opacity: .5;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+
+<body>
+    <div class="container" >
+      <div class="row">
+        <div class="col-sm-6">
+            <h1><strong><%= pageTitle %></strong></h1>
+            <br/>
+            <img class="img-responsive" alt="main_image" src="/assets/images/symphony_main.png">
+        </div>
+          <div class="col-sm-6">
+              <main class="Absolute-Center" >
+
+                  <br/>
+                  <h2>Login here : </h2>
+                  <form id="login" action="/api/login" role="form" method="post">
+                      <div class="form-group">
+                          <label for="login_name">Enter Username : </label>
+                          <input id="login_name" type="text" name="username" class="form-control" placeholder="Username">
+                      </div>
+                      <div class="form-group">
+                          <label for="login_pass">Enter Password : </label>
+                          <input id="login_pass" type="password" name="pass" class="form-control" placeholder="Password">
+                      </div>
+                      <div class="g-recaptcha" data-sitekey="6Lf5bR4TAAAAAOAuLzlx123VoHcCDPxK5vxKu_8H"></div>
+                      <div class="alert alert-danger calculator-alerts hidden" id="form2-error-message"></div>
+                      <br/>
+                      <% if (_error && form_num == 2) { %>
+                      <div class="alert alert-danger" role="alert">
+                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span>
+                          <%= _error %>
+                      </div>
+                      <% } %>
+                      <span>
+                    <button type="submit" id="savingPerMonth" class="btn btn-primary">Login</button>
+                    &nbsp;&nbsp;New user?<button type="button" class="btn btn-link" data-toggle="modal" data-target="#sign_up_modal">Sign Up</button>
+                </span>
+                  </form>
+
+                  <!-- Modal -->
+                  <div id="sign_up_modal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                          <!-- Modal content-->
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h3 class="modal-title">Sign Up</h3>
+                              </div>
+                              <div class="modal-body">
+                                  <form id="sign_up" action="/api/signup" role="form" method="post">
+                                      <div class="form-group">
+                                          <label for="u_name">Enter Username : </label>
+                                          <input id="u_name" type="text" name="username" class="form-control" placeholder="Username">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="e_pass">Enter Password : </label>
+                                          <input id="e_pass" type="password" name="pass" class="form-control" placeholder="Password">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="c_pass">Confirm Password : </label>
+                                          <input id="c_pass" type="password" name="confirm_pass" class="form-control" placeholder="Confirm Password">
+                                      </div>
+                                      <div class="alert alert-danger calculator-alerts hidden" id="form1-error-message"></div>
+                                      <% if (_error&& form_num == 1) { %>
+                                      <div class="alert alert-danger" role="alert">
+                                          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                          <span class="sr-only">Error:</span>
+                                          <%= _error %>
+                                      </div>
+                                      <% } %>
+                                      <button type="submit" id="savingPerMonth" class="btn btn-primary">Sign Up</button>
+                                  </form>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </main>
+          </div>
+      </div>
+
+    </div>
+    <br/><br/>
+
+    <% include ../partials/scripts %>
+</body>
+
+</html>

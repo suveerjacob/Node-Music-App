@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/mainpage_validation.js"></script>
+    <style>
+        .btn-primary{
+            background-color: #0081a2;
+        }
+        .close{
+            opacity: .5;
+        }
+    </style> 
+</head>
+<body>
+<div class="container">
+ 
+    <h1>Symphony Music App</h1>
+    <h2 id="welcometext"></h2>
+    <!-- Modal content for file upload-->
+    <div id="file_upload_box" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Upload your music file: </h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <form id="uploadForm" class="form-horizontal" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="upload_file_detail"> File :</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="upload_file_detail" class="form-control" id="userfile" name="userfile">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" id="upload-button" >upload</button>
+                                </div>
+                            </div>
+                    </form>
+               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- Modal content end-->
+<!-- Modal content for Creating PlayList -->
+    <div id="create_play_list" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Create a Play List : </h4>
+                </div>
+                <div class="modal-body">
+                    <div id="playlistcreator" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="userfile"> Play List Name :</label>
+                                <div class="col-sm-10">
+                                    <input id='txtnewplaylistname' type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button class="btn btn-primary" value="Create" data-operation="crtpl" id="btnPlaylistCreator"
+                                            name="btnPlaylistCreator" class="createplaylist">Create</button>
+                                </div>
+                            </div>
+                    </div>
+               
+                </div>
+                <div class="modal-footer">
+                    <p id="crtplstatus"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- Modal content for Creating PlayList end-->
+
+<!-- Modal content for add songs to PlayList -->
+    <div id="add_songs_toplaylist" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Select songs to Add : </h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="ulavailablesongs" name="ulavailablesongs" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnaddcuspl" class="btn btn-primary" data-operation="cnfm_add_user_play" >ADD</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- Modal content for Creating PlayList end-->
+
+<!-- Modal content for sharing playlist start-->
+    <div id="mdlshareplaylist" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Select Friends to Share : </h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <ul class="list-group" id="uluserlist" name="uluserlist" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnshareplaylist" class="btn btn-primary" data-operation="shareplaylist" >ADD</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!-- Modal content for sharing playlist end-->
+
+
+
+    <br/><br/><br/>
+    <h3 id="now_playing"></h3>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+
+            <audio id="player" controls >
+                <source id="srcmp3"  type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="dropdown" style="float: right">
+
+                <button id="user_button" class="btn btn-default dropdown-toggle " type="button" data-toggle="dropdown"></button>
+                <ul class="dropdown-menu">
+                    <li id="user_li_name" class="dropdown-header">Welcome User :</li>
+                    <li class="divider"></li>
+                    <li><a href="api/logout">Logout</a></li>
+                </ul>
+                <button id="btnUploadSong" type="button" data-toggle="modal" data-target="#file_upload_box"
+                        class="btn btn-default">Upload Songs <span class="glyphicon glyphicon-upload"></span></button>
+
+            </div>
+        </div>
+    </div>
+
+    <br/><br/><br/>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#all_songs">All Songs</a></li>
+        <li><a data-toggle="tab" href="#playlist">My Playlist</a></li>
+        <li><a data-toggle="tab" href="#shared">Shared with me</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="all_songs" class="tab-pane fade in active">
+            <h3>All Songs</h3>
+            <ul class="list-group" id="ulallsongs" name="ulallsongs" />
+                
+        </div>
+        <div id="playlist" class="tab-pane fade">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h3>My Playlists: </h3>
+                </div>
+                <div class="col-xs-2" >
+                    <br/>
+                    <button class="btn btn-default" 
+                        data-toggle="modal" data-target="#create_play_list" 
+                        style="float: right">Create new Playlist <span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+            <ul class="list-group" id="uluserplaylistcol" name="uluserplaylistcol" />
+            
+        </div>
+        <div id="shared" class="tab-pane fade">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h3>Playlists Shared With me</h3>
+                </div>
+            </div>
+            <ul class="list-group" id="ulsharedplaycol" name="ulsharedplaycol" />
+            
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
